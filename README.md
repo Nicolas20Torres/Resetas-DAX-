@@ -1,8 +1,6 @@
 # Resetas-DAX-
 Ejemplo
 
-```dax
-CALCULATE (
-      SUMX ( tbl_edidos , cantidad )
-)
+```sql
+select * from tbl_pedidos
 ```
