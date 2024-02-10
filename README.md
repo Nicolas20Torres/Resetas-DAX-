@@ -1,6 +1,8 @@
 # Resetas-DAX-
 Ejemplo
 
-```python
-import pandas as pd
+```dax
+CALCULATE (
+      SUMX ( tbl_edidos , cantidad )
+)
 ```
