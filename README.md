@@ -19,7 +19,8 @@ VAR fecha_vigente =
 -- 
 VAR calculo_periodos =
 IF ( fecha_vigente = fecha,
--- calculo_periodos: Evaluar la fecha en el contexto antual, si esta el mes actual retorna el acumulado de los meses anteriores hasta el dia en curso, si es un mes distinto toma el acumulados del mes completo. esto con el objeto de pasar un KPI y comparar la medida hasta el dia actual de los mese anteriores
+/* calculo_periodos: Evaluar la fecha en el contexto antual, si esta el mes actual retorna el acumulado de los meses anteriores hasta el dia en curso, si es un mes distinto toma el acumulados del mes completo. esto con el objeto de pasar un KPI y comparar la medida hasta el dia actual de los mese anteriores
+*/
     CALCULATE ( 
         [Matriculas] ,
         DATEADD ( 
