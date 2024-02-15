@@ -3,7 +3,7 @@ Las medidas de inteligencia de tiempos es uno de los aspectos mas importantes en
 ### funcion ´DATEADD´
 La funcion DATEADD es la funcion que permite a travez de la tabla calendario, tomar periodos anteriores a fin de generar la comparacion entre periodos, la sintaxis es DATEADD()
 
-```sql
+```dax
 VAR fecha = CALCULATE(MAX(Historico_Runt_Autocom[FECHA_MATRICULA]),REMOVEFILTERS(Calendario))
 VAR anio_vegente = YEAR(fecha) 
 VAR mes_vigente = MONTH(fecha)
