@@ -2,6 +2,7 @@
 Las medidas de inteligencia de tiempos es uno de los aspectos mas importantes en el momento de generar reportes en Power BI, por lo anterior dejo esta reseta DAX con el objetivo ser usanda en los reportes en cuyos valores quieren comparar tiempos. 
 ### funcion ´DATEADD´
 La funcion DATEADD es la funcion que permite a travez de la tabla calendario, tomar periodos anteriores a fin de generar la comparacion entre periodos, la sintaxis es  ```DATEADD(<dates>,<number_of_intervals>,<interval>)``` 
+ - Aspectos importantes: Para dar poder llevar a cabe este proceso recomiento tener una metidda base ``` Matriculas = SUM(Historico_Runt_Autocom[Cantidad]) ```, esto se tomara como base para modificar el contexto de filtro a traves de la funcion calculate. 
 
 ```sql
 VAR fecha = CALCULATE(MAX(Historico_Runt_Autocom[FECHA_MATRICULA]),REMOVEFILTERS(Calendario))
