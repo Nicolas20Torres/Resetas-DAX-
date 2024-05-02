@@ -1,3 +1,5 @@
+# Ejemplo de Medida Dinamica para matriz dinamica
+
 ```sql```
 Cantidad_Matriculas_Competidores = 
 VAR Mes_Actual = MONTH(MAX(Calendario[Date]))
