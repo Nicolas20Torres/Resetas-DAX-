@@ -1,4 +1,4 @@
-```sql```
+```sql
 Cantidad_Matriculas_Competidores = 
 VAR Mes_Actual = MONTH(MAX(Calendario[Date]))
 VAR Ano_Actual = YEAR(MAX(Calendario[Date]))
@@ -57,3 +57,4 @@ VAR Versiones_para_precios =
         )
     )
 RETURN SUMX(Versiones_para_precios,[@Cantidad_Matriculas])
+```
