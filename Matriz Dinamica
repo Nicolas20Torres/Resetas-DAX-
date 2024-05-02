@@ -1,0 +1,59 @@
+```sql```
+Cantidad_Matriculas_Competidores = 
+VAR Mes_Actual = MONTH(MAX(Calendario[Date]))
+VAR Ano_Actual = YEAR(MAX(Calendario[Date]))
+VAR UltimaFechaExtracion =
+    ADDCOLUMNS ( 
+        VALUES ( Clasificaciones_Varias[Referencia] ) , 
+        "@Fecha Extraccion",
+        CALCULATE (
+           MAXX(
+            listado_de_precios,listado_de_precios[Fecha_Extracion]),
+            FILTER ( listado_de_precios , 
+                MONTH(listado_de_precios[Fecha_Extracion]) = Mes_Actual &&
+                YEAR(listado_de_precios[Fecha_Extracion]) = Ano_Actual)
+        )
+    )
+VAR PrecioExtraccion = 
+    ADDCOLUMNS ( UltimaFechaExtracion , 
+        "@Precio Lista",
+        CALCULATE ( 
+            MIN(listado_de_precios[Precio lista]),
+                FILTER ( listado_de_precios , 
+                MONTH(listado_de_precios[Fecha_Extracion]) = Mes_Actual &&
+                YEAR(listado_de_precios[Fecha_Extracion]) = Ano_Actual),
+                FILTER ( Fichas_clasificaciones , Fichas_clasificaciones[Transmision] IN VALUES(Transmision[Descripcion]))
+        )
+    )
+VAR Descuentos = 
+    ADDCOLUMNS ( PrecioExtraccion , 
+        "@Descuentos" ,
+        CALCULATE (
+            MAX(listado_de_precios[Total_Descuentos]), 
+                FILTER ( listado_de_precios , 
+                MONTH(listado_de_precios[Fecha_Extracion]) = Mes_Actual &&
+                YEAR(listado_de_precios[Fecha_Extracion]) = Ano_Actual),
+                FILTER ( listado_de_precios , listado_de_precios[Precio lista] = [@Precio Lista])
+        )
+    )
+VAR Versionseleccionada = 
+    ADDCOLUMNS ( Descuentos ,
+        "@Version",
+        CALCULATE ( 
+            MAX ( listado_de_precios[Version]) , 
+                FILTER ( listado_de_precios , 
+                MONTH(listado_de_precios[Fecha_Extracion]) = Mes_Actual &&
+                YEAR(listado_de_precios[Fecha_Extracion]) = Ano_Actual),
+                FILTER ( listado_de_precios , listado_de_precios[Precio lista] = [@Precio Lista])
+        )
+    )
+
+VAR Versiones_para_precios = 
+    ADDCOLUMNS ( Versionseleccionada , 
+        "@Cantidad_Matriculas" ,
+        CALCULATE(
+            SUM(Modelado_RUNT_BI[Cantidad]),
+            FILTER ( listado_de_precios , listado_de_precios[Version] = [@Version] ) 
+        )
+    )
+RETURN SUMX(Versiones_para_precios,[@Cantidad_Matriculas])
